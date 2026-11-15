@@ -1,0 +1,27 @@
+# Vendored copy of https://github.com/Mivik/sasa @ e76229b2f68e4dc68b22bc375d2a92e8e7897691
+# so that Phira can ship an `android.media.AudioTrack` backend next to oboe.
+# Only `src/backend/audiotrack.rs` and its feature wiring are ours; keep the
+# rest in sync with upstream when bumping.
+[package]
+name = "sasa"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = ["cpal"]
+cpal = ["dep:cpal"]
+oboe = ["dep:oboe"]
+ohos = ["dep:ohos-audio-sys"]
+audiotrack = ["dep:jni"]
+
+[dependencies]
+anyhow = "1.0.100"
+cpal = { version = "0.17.1", optional = true }
+parking_lot = "0.12.5"
+ringbuf = "0.4.8"
+symphonia = { version = "0.5.5", features = ["mp3", "aac", "vorbis", "wav", "flac", "isomp4", "ogg"] }
+thiserror = "2.0.18"
+
+jni = { version = "0.22.4", optional = true }
+oboe = { version = "0.6.1", optional = true, features = ["shared-stdcxx"] }
+ohos-audio-sys = { version = "0.0.1", optional = true, features = ["api-20"] }
